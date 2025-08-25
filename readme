@@ -29,12 +29,12 @@ id (PK)
 name
 email
 password (hashed)
-role (admin/farmer/agronom)
+role (admin/farmer/agronomist)
 is_verified
 
 2.roles
 id (PK)
-name (admin, farmer, agronom)
+name (admin, farmer, agronomist)
 
 3.plants
 id (PK)

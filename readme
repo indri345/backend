@@ -1,0 +1,80 @@
+INSTALLATION DAN RUN
+1.Clone Repo 
+git clone https://github.com/indri345/backend.git
+cd urban-farming-backend
+
+2.Install dependency
+npm install
+
+3.Set environment variable(.env)
+PORT=4000
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=urban_farming
+DB_USER=postgres
+DB_PASS=yourpassword
+JWT_SECRET=yourjwtsecret
+
+4.Set up database
+npx sequelize-cli db:create
+npx sequelize-cli db:migrate
+
+5.Runserver
+npm start
+
+STRUKTUR DATABASE
+Tabel utama:
+1.users
+id (PK)
+name
+email
+password (hashed)
+role (admin/farmer/agronom)
+is_verified
+
+2.roles
+id (PK)
+name (admin, farmer, agronom)
+
+3.plants
+id (PK)
+name
+type
+owner_id (FK ke users)
+
+4.cares
+id (PK)
+plant_id (FK ke plants)
+farmer_id (FK ke users)
+start_date
+last_date
+fertilizer_type
+notes
+
+TEKNOLOGI DAN LIBRARY UTAMA
+1.Backend: Node.js + Express.js
+2.Database: PostgreSQL
+3.ORM: Sequelize
+4.Auth: JWT (jsonwebtoken), bcrypt (hashing password)
+5.Validation: Custom validator (utils/validate.js)
+6.Middleware: Role-based authorization (admin, farmer, agronomist)
+7.Testing API: Thunder Client/Postman
+
+DAFTAR FITUR YANG SELESAI 
+Stage 1 — Role & Authentication & Authorization
+(Backend)
+Fitur Wajib:
+● Register dan login.
+● User memiliki role: admin, farmer, agronomist
+Bonus:
+● Middleware untuk role-based authorization.
+
+Stage 2 — Tanaman dan Perawatan 
+Fitur Wajib:
+● Admin dapat mengelola data Tanaman (CRUD)
+● Tanaman bisa dimiliki oleh farmer
+● Farmer dapat mencatat tanggal tanam
+● Perawatan dapat dikelola (CRUD)
+● Farmer hanya boleh CRUD perawatan pada tanaman yang dimilikinya
+Bonus:
+● Menggunakan ValidatorJs

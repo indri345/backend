@@ -59,6 +59,85 @@ TEKNOLOGI DAN LIBRARY UTAMA
 5.Validation: Custom validator (utils/validate.js)
 6.Middleware: Role-based authorization (admin, farmer, agronomist)
 7.Testing API: Thunder Client/Postman
+● Register:
+POST http://localhost:4000/auth/register
+{
+  "username": "admin1",
+  "email": "admin1@mail.com",
+  "password": "secret123",
+  "role": "admin"
+}
+
+● Login:
+POST http://localhost:4000/auth/login
+{
+  "username": "admin1",
+  "password": "secret123"
+}
+
+● Admin buat Tanaman (CRUD Plants – Create):
+POST http://localhost:4000/admin/plants
+Headers: Authorization: Bearer <TOKEN_ADMIN>
+{
+  "name": "Cabai Rawit",
+  "species": "Capsicum frutescens",
+  "location": "Greenhouse A"
+}
+
+● Register dan login farmer sama seperti login as admin
+Jika ingin lihat tanaman, claim tanaman, care tanaman farmer, 
+lihat tanaman farmer maka farmer harus login dulu.
+
+● Farmer lihat tanaman yang bisa diklaim:
+GET http://localhost:4000/farmer/plants/available
+Headers: Authorization: Bearer <TOKEN_FARMER>
+
+● Farmer klaim tanaman + catat tanggal tanam
+Misal mau klaim plant id = 1.
+POST http://localhost:4000/farmer/plants/1/claim
+Headers: Authorization: Bearer <TOKEN_FARMER>
+{
+  "planted_at": "2025-08-25"
+}
+
+● Lihat tanaman milik saya(farmer)
+GET http://localhost:4000/farmer/plants/mine
+Headers: Authorization: Bearer <TOKEN_FARMER>
+
+● CRUD Perawatan (Care) — Farmer HANYA untuk tanamannya sendiri
+Create Care:
+POST http://localhost:4000/care
+Headers: Authorization: Bearer <TOKEN_FARMER>
+{
+  "plant_id": 1,
+  "start_date": "2025-08-26",
+  "last_date": "2025-08-26",
+  "fertilizer_type": "NPK 16-16-16",
+  "notes": "Penyiraman pagi, pemupukan ringan"
+}
+
+● List Care:
+GET http://localhost:4000/care
+Headers: Authorization: Bearer <TOKEN_FARMER>
+Farmer: hanya lihat care miliknya.
+Admin (jika pakai token admin): lihat semua care.
+
+● Detail Care:
+GET http://localhost:4000/care/1
+Headers: Authorization: Bearer <TOKEN_FARMER>
+
+● Update Care:
+PUT http://localhost:4000/care/1
+Headers: Authorization: Bearer <TOKEN_FARMER>
+{
+  "last_date": "2025-08-27",
+  "fertilizer_type": "Kompos Organik",
+  "notes": "Ganti pupuk jadi organik"
+}
+
+● Delete Care
+DELETE http://localhost:5000/care/1
+Headers: Authorization: Bearer <TOKEN_FARMER>
 
 DAFTAR FITUR YANG SELESAI 
 Stage 1 — Role & Authentication & Authorization
